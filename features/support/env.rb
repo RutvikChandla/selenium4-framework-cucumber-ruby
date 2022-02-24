@@ -8,7 +8,7 @@ url = "http://#{ENV['BS_USERNAME']}:#{ENV['BS_AUTHKEY']}@hub.browserstack.com/wd
 
 Capybara.register_driver :browserstack do |app|
 	options = Selenium::WebDriver::Options.chrome
-	options.browser_version = ENV['SELENIUM_VERSION'] || 'latest'
+	options.browser_version = 'latest'
 	options.platform_name = 'MAC'
 
 	bstack_options = {
@@ -16,8 +16,8 @@ Capybara.register_driver :browserstack do |app|
 		"osVersion" => "Sierra",
 		"buildName" =>  ENV['BS_AUTOMATE_BUILD'] || "Final-Snippet-Test",
 		"sessionName" => "Cucumber test",
-		"local" => "false",
-		"seleniumVersion" => "4.0.0",
+		"local" => "true",
+		"seleniumVersion" => ENV['SELENIUM_VERSION'] || "4.0.0",
 	}
 	if bstack_options['local'] && bstack_options['local'] == 'true';
 		@bs_local = BrowserStack::Local.new
